@@ -1,0 +1,13 @@
+C:\Users\GabrielFerreira\documents\repos\EfExercise\bin\Debug\netcoreapp3.1\EfExercise.exe
+C:\Users\GabrielFerreira\documents\repos\EfExercise\bin\Debug\netcoreapp3.1\EfExercise.deps.json
+C:\Users\GabrielFerreira\documents\repos\EfExercise\bin\Debug\netcoreapp3.1\EfExercise.runtimeconfig.json
+C:\Users\GabrielFerreira\documents\repos\EfExercise\bin\Debug\netcoreapp3.1\EfExercise.runtimeconfig.dev.json
+C:\Users\GabrielFerreira\documents\repos\EfExercise\bin\Debug\netcoreapp3.1\EfExercise.dll
+C:\Users\GabrielFerreira\documents\repos\EfExercise\bin\Debug\netcoreapp3.1\EfExercise.pdb
+C:\Users\GabrielFerreira\documents\repos\EfExercise\obj\Debug\netcoreapp3.1\EfExercise.csprojAssemblyReference.cache
+C:\Users\GabrielFerreira\documents\repos\EfExercise\obj\Debug\netcoreapp3.1\EfExercise.AssemblyInfoInputs.cache
+C:\Users\GabrielFerreira\documents\repos\EfExercise\obj\Debug\netcoreapp3.1\EfExercise.AssemblyInfo.cs
+C:\Users\GabrielFerreira\documents\repos\EfExercise\obj\Debug\netcoreapp3.1\EfExercise.csproj.CoreCompileInputs.cache
+C:\Users\GabrielFerreira\documents\repos\EfExercise\obj\Debug\netcoreapp3.1\EfExercise.dll
+C:\Users\GabrielFerreira\documents\repos\EfExercise\obj\Debug\netcoreapp3.1\EfExercise.pdb
+C:\Users\GabrielFerreira\documents\repos\EfExercise\obj\Debug\netcoreapp3.1\EfExercise.genruntimeconfig.cache
