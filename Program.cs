@@ -1,4 +1,5 @@
 ﻿using System;
+using EfExercise.src;
 
 namespace EfExercise
 {
@@ -6,7 +7,9 @@ namespace EfExercise
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            RetrieveConnectionString retrieve = new RetrieveConnectionString();
+
+            
         }
     }
 }
