@@ -10,9 +10,9 @@ namespace EfExercise2.Models
     {
         [Key]
         public int Id { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-        public List<Rent> Rents { get; set; }
+        public string Nome { get; set; }
+        public DateTime Nascimento { get; set; }
+        public DateTime Cadastro { get; set; }
+        public bool Ativo { get; set; }
     }
 }

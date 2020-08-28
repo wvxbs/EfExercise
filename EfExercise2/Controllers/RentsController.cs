@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EfExercise2.Models;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 
 namespace EfExercise2.Controllers
 {
@@ -21,7 +22,12 @@ namespace EfExercise2.Controllers
         // GET: Rents
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Rent.ToListAsync());
+            var rent = await _context.Rent
+                .Include(x => x.Cliente)
+                .Include(x => x.Livro)
+                .ToListAsync();
+
+            return View(rent);
         }
 
         // GET: Rents/Details/5
@@ -33,18 +39,22 @@ namespace EfExercise2.Controllers
             }
 
             var rent = await _context.Rent
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(x => x.Cliente).Include(x => x.Livro).FirstOrDefaultAsync(m => m.Id == id);
+
             if (rent == null)
             {
                 return NotFound();
             }
 
             return View(rent);
-        }
+        }     
 
         // GET: Rents/Create
         public IActionResult Create()
         {
+            ViewBag.Livros = new SelectList(_context.Book.ToList(), "Id", "Nome");
+            ViewBag.Clientes = new SelectList(_context.Customer.ToList(), "Id", "Nome");
+
             return View();
         }
 
@@ -53,20 +63,36 @@ namespace EfExercise2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,BookId,RentDate,ExpirationDate")] Rent rent)
+        public async Task<IActionResult> Create([Bind("Id,Livro,Cliente,Emprestado,PrevisaoDevolucao,Devolucao")] Rent rent)
         {
-            if (ModelState.IsValid)
+            bool BookIsBusy = _context.Rent.Any(x => x.Livro.Id == rent.Livro.Id);
+
+            if (BookIsBusy)
             {
-                _context.Add(rent);
-                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(rent);
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    rent.Livro = _context.Book.First(x => x.Id.Equals(rent.Livro.Id));
+                    rent.Cliente = _context.Customer.First(x => x.Id.Equals(rent.Cliente.Id));
+                    _context.Add(rent);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return View(rent);
+            }
         }
 
         // GET: Rents/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+
+            ViewBag.Livros = new SelectList(_context.Book.ToList(), "Id", "Nome");
+            ViewBag.Clientes = new SelectList(_context.Customer.ToList(), "Id", "Nome");
+
             if (id == null)
             {
                 return NotFound();
@@ -85,7 +111,7 @@ namespace EfExercise2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,BookId,RentDate,ExpirationDate")] Rent rent)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Livro, Cliente, Emprestado,PrevisaoDevolucao,Devolucao")] Rent rent)
         {
             if (id != rent.Id)
             {
@@ -96,8 +122,17 @@ namespace EfExercise2.Controllers
             {
                 try
                 {
+                    rent.Livro = _context.Book.First(x => x.Id.Equals(rent.Livro.Id));
+                    rent.Cliente = _context.Customer.First(x => x.Id.Equals(rent.Cliente.Id));
+
                     _context.Update(rent);
                     await _context.SaveChangesAsync();
+                    if (rent.Devolucao > rent.Emprestado)
+                    {
+                        rent.Livro = _context.Book.First(x => x.Id.Equals(rent.Livro.Id));
+                        rent.Cliente = _context.Customer.First(x => x.Id.Equals(rent.Cliente.Id));
+                        return RedirectToAction("RentEnded", rent);
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -147,6 +182,14 @@ namespace EfExercise2.Controllers
         private bool RentExists(int id)
         {
             return _context.Rent.Any(e => e.Id == id);
+        }
+
+        public async Task<IActionResult> RentEnded(Rent rent)
+        {
+            rent = _context.Rent
+                .Include(x => x.Cliente).Include(x => x.Livro).FirstOrDefault(m => m.Id == rent.Id);
+
+            return View(rent);
         }
     }
 }

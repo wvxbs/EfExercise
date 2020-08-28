@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/EfExercise/bin/Debug/netcoreapp3.1/EfExercise.dll",
+            "program": "${workspaceFolder}/EfExercise2/bin/Debug/netcoreapp3.1/EfExercise2.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/EfExercise",
+            "cwd": "${workspaceFolder}/EfExercise2",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             "serverReadyAction": {

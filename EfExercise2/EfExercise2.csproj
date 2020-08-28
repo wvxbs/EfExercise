@@ -5,6 +5,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200826133413_Library.cs" />
+    <Compile Remove="Migrations\20200826133413_Library.Designer.cs" />
+    <Compile Remove="Migrations\20200826133640_Library.cs" />
+    <Compile Remove="Migrations\20200826133640_Library.Designer.cs" />
+    <Compile Remove="Migrations\20200826134119_LibraryMigration.cs" />
+    <Compile Remove="Migrations\20200826134119_LibraryMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200826140137_LibraryMigration.cs" />
+    <Compile Remove="Migrations\20200826140137_LibraryMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200826141955_Bibioteca.cs" />
+    <Compile Remove="Migrations\20200826141955_Bibioteca.Designer.cs" />
+    <Compile Remove="Migrations\20200826143644_Bibioteca.cs" />
+    <Compile Remove="Migrations\20200826143644_Bibioteca.Designer.cs" />
+    <Compile Remove="Migrations\20200826144032_Bibioteca.cs" />
+    <Compile Remove="Migrations\20200826144032_Bibioteca.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
@@ -13,6 +30,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

@@ -53,7 +53,7 @@ namespace EfExercise2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Nascimento,Cadastro,Ativo")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace EfExercise2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Nascimento,Cadastro,Ativo")] Customer customer)
         {
             if (id != customer.Id)
             {

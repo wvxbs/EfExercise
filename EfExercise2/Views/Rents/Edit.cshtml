@@ -15,19 +15,29 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="BookId" class="control-label"></label>
-                <input asp-for="BookId" class="form-control" />
-                <span asp-validation-for="BookId" class="text-danger"></span>
+                <label asp-for="Livro" class="control-label"></label>
+                <select asp-for="Livro.Id" asp-items="ViewBag.Livros" class="form-control">
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="RentDate" class="control-label"></label>
-                <input asp-for="RentDate" class="form-control" />
-                <span asp-validation-for="RentDate" class="text-danger"></span>
+                <label asp-for="Cliente" class="control-label"></label>
+                <select asp-for="Cliente.Id" asp-items="ViewBag.Clientes" class="form-control">
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="ExpirationDate" class="control-label"></label>
-                <input asp-for="ExpirationDate" class="form-control" />
-                <span asp-validation-for="ExpirationDate" class="text-danger"></span>
+                <label asp-for="Emprestado" class="control-label"></label>
+                <input asp-for="Emprestado" class="form-control" />
+                <span asp-validation-for="Emprestado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrevisaoDevolucao" class="control-label"></label>
+                <input asp-for="PrevisaoDevolucao" class="form-control" />
+                <span asp-validation-for="PrevisaoDevolucao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Devolucao" class="control-label"></label>
+                <input asp-for="Devolucao" class="form-control" />
+                <span asp-validation-for="Devolucao" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

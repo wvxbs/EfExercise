@@ -10,8 +10,7 @@ namespace EfExercise2.Models
     {
         [Key]
         public int Id { get; set; }
-
-        [Required]
-        public string Name { get; set; }
+        public string Nome { get; set; }
+        public bool Ativo { get; set; }
     }
 }

@@ -33,7 +33,7 @@ namespace EfExercise2.Controllers
             }
 
             var book = await _context.Book
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(x => x.Categoria).FirstOrDefaultAsync(m => m.Id == id);
             if (book == null)
             {
                 return NotFound();
@@ -45,6 +45,8 @@ namespace EfExercise2.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
+            ViewBag.Categorias = new SelectList(_context.Category.ToList(), "Id", "Nome");
+
             return View();
         }
 
@@ -53,10 +55,11 @@ namespace EfExercise2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Book book)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Categoria,Autor,Ativo")] Book book)
         {
             if (ModelState.IsValid)
             {
+                book.Categoria = _context.Category.First(x => x.Id.Equals(book.Categoria.Id));
                 _context.Add(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -77,6 +80,9 @@ namespace EfExercise2.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.Categorias = new SelectList(_context.Category.ToList(), "Id", "Nome", _context.Category.First(x => x.Equals(book.Categoria)));
+
             return View(book);
         }
 
@@ -85,7 +91,7 @@ namespace EfExercise2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Book book)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Categoria,Autor,Ativo")] Book book)
         {
             if (id != book.Id)
             {
@@ -96,6 +102,8 @@ namespace EfExercise2.Controllers
             {
                 try
                 {
+                    book.Categoria = _context.Category.First(x => x.Id.Equals(book.Categoria.Id));
+                    _context.Add(book);
                     _context.Update(book);
                     await _context.SaveChangesAsync();
                 }
@@ -148,5 +156,6 @@ namespace EfExercise2.Controllers
         {
             return _context.Book.Any(e => e.Id == id);
         }
+
     }
 }

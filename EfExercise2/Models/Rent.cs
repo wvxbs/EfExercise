@@ -11,9 +11,11 @@ namespace EfExercise2.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        public string BookId { get; set; }
-        public DateTime RentDate { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        public Book Livro { get; set; }
+        public Customer Cliente { get; set; }
+        public DateTime Emprestado { get; set; }
+        public DateTime PrevisaoDevolucao { get; set; }
+        public DateTime Devolucao { get; set; }
+
     }
 }

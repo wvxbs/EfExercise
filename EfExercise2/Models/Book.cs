@@ -10,9 +10,9 @@ namespace EfExercise2.Models
     {
         [Key]
         public int Id{ get; set; }
-
-        [Required]
-        public string Name { get; set; }
-        public List<Category> Categories { get; set; }
+        public string Nome { get; set; }
+        public Category Categoria{ get; set; }
+        public string Autor { get; set; }
+        public bool Ativo { get; set; }
     }
 }
