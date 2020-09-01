@@ -14502,6 +14502,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\GabrielFerreira\\Documents\\repos\\EfExercise\\EfExercise2\\Views\\Rents\\RentEnded.cshtml",
+      "TargetPath": "Views\\Rents\\RentEnded.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\GabrielFerreira\\Documents\\repos\\EfExercise\\EfExercise2\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"

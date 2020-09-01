@@ -10,10 +10,12 @@ namespace EfExercise2
     public class RetrieveConnectionString
     {
         string ConnectionString = "";
+        string MongoConnectionString = "";
 
         public RetrieveConnectionString()
         {
             ReadConnectionString();
+            ReadMongoConnectionString();
         }
 
         private void ReadConnectionString()
@@ -24,9 +26,22 @@ namespace EfExercise2
             }
         }
 
+        private void ReadMongoConnectionString()
+        {
+            using (StreamReader st = new StreamReader("MongoConnectionString.txt"))
+            {
+                ConnectionString = st.ReadToEnd();
+            }
+        }
+
         public string GetConnectionString()
         {
             return ConnectionString;
+        }
+
+        public string GetMongoConnectionString()
+        {
+            return MongoConnectionString;
         }
     }
 }
