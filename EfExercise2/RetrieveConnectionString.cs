@@ -30,7 +30,7 @@ namespace EfExercise2
         {
             using (StreamReader st = new StreamReader("MongoConnectionString.txt"))
             {
-                ConnectionString = st.ReadToEnd();
+                MongoConnectionString = st.ReadToEnd();
             }
         }
 

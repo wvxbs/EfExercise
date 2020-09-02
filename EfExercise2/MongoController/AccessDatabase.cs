@@ -8,13 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using EfExercise2.Models;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace EfExercise2.MongoController
 {
     class AccessDatabase
     {
 
-        IMongoDatabase database;
+        private IMongoCollection<BsonDocument> collection;
 
         public AccessDatabase()
         {
@@ -27,12 +28,15 @@ namespace EfExercise2.MongoController
 
             var client = new MongoClient(retrieveConnectionString.GetMongoConnectionString());
 
-            database = client.GetDatabase("test");
+            var database = client.GetDatabase("test");
+            collection = database.GetCollection<BsonDocument>("Livros");
         }
 
         public void AddToDatabase(Log log)
         {
             BuildBsonObject buildBsonObject = new BuildBsonObject(log);
+            var Document = buildBsonObject.GetCreatedBsonDocument();
+            collection.InsertOne(Document);
         }
     }
 }

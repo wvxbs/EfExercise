@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EfExercise2.Models;
+using EfExercise2.MongoController;
 
 namespace EfExercise2.Controllers
 {
@@ -60,6 +61,17 @@ namespace EfExercise2.Controllers
             if (ModelState.IsValid)
             {
                 book.Categoria = _context.Category.First(x => x.Id.Equals(book.Categoria.Id));
+
+                Log log = new Log();
+                log.NomeAlterado = book.Nome;
+                log.AutorAlterado = book.Autor;
+                log.CategoriaAlterada = book.Categoria.Nome;
+                log.AtivoAlterado = book.Ativo;
+                log.Data = DateTime.Now;
+                log.Acao = "Insert";
+
+                LogActivity(log);
+
                 _context.Add(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -103,6 +115,22 @@ namespace EfExercise2.Controllers
                 try
                 {
                     book.Categoria = _context.Category.First(x => x.Id.Equals(book.Categoria.Id));
+                    var OriginalBook = await _context.Book.AsNoTracking().Include(x => x.Categoria).FirstOrDefaultAsync(m => m.Id == id);
+
+                    Log log = new Log();
+                    log.NomeOriginal = OriginalBook.Nome;
+                    log.NomeAlterado = book.Nome;
+                    log.AutorOriginal = OriginalBook.Autor;
+                    log.AutorAlterado = book.Autor;
+                    log.CategoriaOriginal = OriginalBook.Categoria.Nome;
+                    log.CategoriaAlterada = book.Categoria.Nome;
+                    log.AtivoOriginal = OriginalBook.Ativo;
+                    log.AtivoAlterado = book.Ativo;
+                    log.Data = DateTime.Now;
+                    log.Acao = "Update";
+
+                    LogActivity(log);
+
                     _context.Add(book);
                     _context.Update(book);
                     await _context.SaveChangesAsync();
@@ -147,6 +175,14 @@ namespace EfExercise2.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var book = await _context.Book.FindAsync(id);
+
+            Log log = new Log();
+            log.NomeOriginal = book.Nome;
+            log.Data = DateTime.Now;
+            log.Acao = "Delete";
+
+            LogActivity(log);
+
             _context.Book.Remove(book);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -157,5 +193,9 @@ namespace EfExercise2.Controllers
             return _context.Book.Any(e => e.Id == id);
         }
 
+        private void LogActivity(Log log)
+        {
+            LogActivityToDatabase logActivityToDatabase = new LogActivityToDatabase(log);
+        }
     }
 }
