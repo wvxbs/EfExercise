@@ -7,48 +7,43 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EfExercise2.Models;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
+using MongoDB.Bson;
+using System.Collections.ObjectModel;
+using SQLitePCL;
 
 namespace EfExercise2.MongoController
 {
     class BuildBsonObject
     {
-        Log log = new Log();
+        Log log;
+        BsonDocument Document;
 
-        private string NomeOriginal;
-        private string NomeAlterado;
-        private string AutorOriginal;
-        private string AutorAlterado;
-        private string CategoriaOriginal;
-        private string CategoriaAlterada;
-        private bool AtivoOriginal;
-        private bool AtivoAlterado;
-        private DateTime Data;
-        private string Acao;
-
-        public BuildBsonObject(string nomeOriginal, string nomeAlterado, string autorOriginal, string autorAlterado, string categoriaOriginal, string categoriaAlterada, bool ativoOriginal, bool ativoAlterado, DateTime date, string acao)
+        public BuildBsonObject(Log _log)
         {
-            NomeOriginal = nomeOriginal;
-            NomeAlterado = nomeAlterado;
-            AutorOriginal = autorOriginal;
-            AutorAlterado = autorAlterado;
-            CategoriaOriginal = categoriaOriginal;
-            CategoriaAlterada = categoriaAlterada;
-            AtivoOriginal = ativoOriginal;
-            AtivoAlterado = ativoAlterado;
-            Data = date;
-            Acao = acao;
-
-            ParseBsonObject();
+            log = _log;
+            CreateBsonDocument();
         }
 
-        private void ParseBsonObject()
+        private void CreateBsonDocument()
         {
-                        
+            Document =  new BsonDocument
+            {
+                { "NomeOriginal" , log.NomeOriginal },
+                { "NomeAlterado" , log.NomeAlterado },
+                { "AutorOriginal" , log.AutorOriginal },
+                { "AutorAlterado" , log.AutorAlterado },
+                { "CategoriaOriginal" , log.CategoriaOriginal },
+                { "CategoriaAlterado" , log.CategoriaAlterada },
+                { "AtivoOriginal" , log.AtivoOriginal},
+                { "AtivoAlterado" , log.AtivoAlterado},
+                { "Data" , log.Data},
+                { "Acao" , log.Acao }
+            };
         }
 
-        public Bson GetParsedBsonObject()
+        public BsonDocument GetCreatedBsonDocument()
         {
-            return 
+            return Document;
         }
     }
 }

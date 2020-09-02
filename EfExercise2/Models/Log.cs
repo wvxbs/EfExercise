@@ -12,8 +12,8 @@ namespace EfExercise2.Models
             AutorAlterado = "";
             CategoriaOriginal = "";
             CategoriaAlterada = "";
-            AtivoOriginal = "";
-            AtivoAlterado = "";
+            AtivoOriginal = null;
+            AtivoAlterado = null;
             Data = new DateTime();
             Acao = "";
         }
@@ -24,8 +24,8 @@ namespace EfExercise2.Models
         public string AutorAlterado { get; set; }
         public string CategoriaOriginal { get; set; }
         public string CategoriaAlterada { get; set; }
-        public bool AtivoOriginal { get; set; }
-        public bool AtivoAlterado { get; set; }
+        public bool? AtivoOriginal { get; set; }
+        public bool? AtivoAlterado { get; set; }
         public DateTime Data { get; set; }
         public string Acao { get; set; }
 
